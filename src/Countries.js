@@ -27,6 +27,7 @@ class Countries extends Component {
         return (
         <div>
             <h3>Countries</h3>
+            {countries.length===0 && <p>Loading...please wait...</p>}
             <div className='countries'>
             {
                 countries && countries.map((country, index) =>{
