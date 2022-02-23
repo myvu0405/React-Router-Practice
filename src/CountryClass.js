@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -13,13 +13,18 @@ class CountryClass extends Component {
             capital:[],
             population:0,
             region:'',
-            flagUrl:''
+            flagUrl:'',
+            result:'loading'
         }
     }
 
     componentDidMount = () => {
 
         const name = window.location.href.split('/')[window.location.href.split('/').length - 1];
+        
+        this.setState({
+            name
+        });
         const api= `https://restcountries.com/v3.1/name/${name}`;
 
         axios.get(api)
@@ -32,10 +37,16 @@ class CountryClass extends Component {
                     capital:data.capital,
                     population: data.population,
                     region:data.region,
-                    flagUrl: data.flags.png
+                    flagUrl: data.flags.png,
+                    result:'found'
                 })
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err);
+                this.setState({
+                    result:'notfound'
+                })
+            })
 
     }
 
@@ -43,8 +54,9 @@ class CountryClass extends Component {
         const {name,officialName,capital,population,region,flagUrl} = this.state;
         return (
         <div>
-            <h3>Country: {name} {this.state.name==='' && <label>Loading... please wait...</label>}</h3>
-            {this.state.name!=='' && (
+            <h3>Country: {name} {this.state.result==='loading' && <label>Loading... please wait...</label>}</h3>
+            {this.state.result==='notfound' && <label style={{color:'red'}}>Country not found!</label>}
+            {this.state.result==='found' && (
                 <div>
                     <label>Official name: {officialName}</label>
                     <br />
@@ -59,6 +71,7 @@ class CountryClass extends Component {
                     <img src={flagUrl} alt={name} />
                 </div>
             )}
+            <Link to='/countries'>Go Back</Link>
         </div>
         )
     }

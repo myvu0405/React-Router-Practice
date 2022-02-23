@@ -5,6 +5,8 @@ import Header from './Header';
 import Countries from './Countries';
 // import Country from './Country';
 import CountryClass from './CountryClass';
+import NotFound from './NotFound';
+import Footer from './Footer';
 
 function App() {
   return (
@@ -12,10 +14,13 @@ function App() {
         <BrowserRouter>
           <Header/>
           <Routes>
-            <Route exact path='/' element={<Home/>}/>
-            <Route exact path='/countries' element={<Countries/>}/>
-            <Route exact path='/country/:name' element={<CountryClass/>}/>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/countries' element={<Countries/>}/>
+            <Route path='/country/:name' element={<CountryClass/>}/>
+            <Route path='*' element={<NotFound/>}/>
+
           </Routes>
+          <Footer/>
         </BrowserRouter>
     </div>
   );

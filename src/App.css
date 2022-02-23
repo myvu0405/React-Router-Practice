@@ -5,10 +5,12 @@
 .App {
   width: 80%;
   margin: auto;
+  background: lightgrey;
 }
 .header {
   display: flex;
   justify-content: space-between;
+  height: 100px;
 }
 
 .header-links {
@@ -31,4 +33,11 @@
 
 .country img {
   width: 100%;
+}
+
+.footer {
+  height: 50px;
+  margin-top: 100px;
+  text-align: center;
+  color: rgb(184, 16, 44);
 }
